@@ -35,25 +35,19 @@ class Alternative:
         
         alt = 'Alternative: {}\nService Life: {} years\n'.format(self.name, self.service_life)
 
-        # round cost to two decimal places
+        # round cost to two decimal places and add thousand separator
 
-        init_cost = round(self.initial_cost, 2) 
-        ann_main_cost = round(self.annual_maintenance_cost, 2)
-        salv_val = round(self.salvage_value, 2)
-
-        alt += 'Initial Cost: ${}\n'.format('{0:,}'.format(init_cost))
-        alt += 'Annual Maintenance Cost: ${}\n'.format('{0:,}'.format(ann_main_cost))
-        alt += 'Salvage Value: ${}\n'.format('{0:,}'.format(salv_val))
+        alt += 'Initial Cost: ${}\n'.format('{:,.2f}'.format(self.initial_cost))
+        alt += 'Annual Maintenance Cost: ${}\n'.format('{:,.2f}'.format(self.annual_maintenance_cost))
+        alt += 'Salvage Value: ${}\n'.format('{:,.2f}'.format(self.salvage_value))
         
         # check to see if there are other annual costs
 
         if self.other_annual_costs is not None:
 
             for item in self.other_annual_costs:
-                
-                other_cost = round(self.other_annual_costs[item], 2)
 
-                alt += item + ': ${}\n'.format('{0:,}'.format(other_cost))
+                alt += item + ': ${}\n'.format('{:,.2f}'.format(self.other_annual_costs[item]))
 
         return alt
 
@@ -210,10 +204,8 @@ class Economic_Analysis:
 
                 lowest_cost = pworths[cost]
                 best_alternative = cost
-        
-        lowest_cost = round(lowest_cost, 2)
 
-        return 'Best Alternative: {}\nCost: ${}'.format(best_alternative, '{0:,}'.format(lowest_cost))
+        return 'Best Alternative: {}\nCost: ${}'.format(best_alternative, '{:,.2f}'.format(lowest_cost))
 
     def annual_cost(self, alt):
 
@@ -268,10 +260,8 @@ class Economic_Analysis:
 
                 lowest_cost = aworths[cost]
                 best_alternative = cost
-        
-        lowest_cost = round(lowest_cost, 2)
 
-        return 'Best Alternative: {}\nCost: ${}'.format(best_alternative, '{0:,}'.format(lowest_cost))
+        return 'Best Alternative: {}\nCost: ${}'.format(best_alternative, '{:,.2f}'.format(lowest_cost))
 
     def benefit_cost_method(self, highway_user_costs):
 
@@ -348,4 +338,3 @@ class Economic_Analysis:
                     print('BC Ratio: ' + str(round(BC_ratio, 2)))
 
                     return 'Best Alternative: {}'.format(self.alternatives[0].name)
-      
